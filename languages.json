@@ -1,0 +1,122 @@
+[
+  {
+    "Prefix": "bul",
+    "NativeName": "Български",
+    "EnglishName": "Bulgarian",
+    "Version": "NzOXhXHeJxOYewGWof_BF13IPwdpnDgq"
+  },
+  {
+    "Prefix": "cze",
+    "EnglishName": "Czech",
+    "NativeName": "Čeština",
+    "Version": "4P7KhGV4uIORQM_2_dyclpC6SANP1I7m"
+  },
+  {
+    "Prefix": "dan",
+    "EnglishName": "Danish",
+    "NativeName": "Dansk",
+    "Version": "pPnH_mcT9wSk6few_pX1fIITyF5T0dru"
+  },
+  {
+    "Prefix": "eng",
+    "EnglishName": "English",
+    "NativeName": "English",
+    "Version": ".Sqz34t9QrOn9Q9u4M1ScozoVyB.mwqb"
+  },
+  {
+    "Prefix": "spi",
+    "EnglishName": "Spanish",
+    "NativeName": "Español",
+    "Version": "y5fQhf72xPFNcyN4B8XeNwgfWNmqmohL"
+  }, 
+  {
+    "Prefix": "est",
+    "EnglishName": "Estonia",
+    "NativeName": "Eesti",
+    "Version": "VDIZVZhhNnHfBcb6nzoUiEOZ1cjBYd"
+   },
+   {
+    "Prefix": "fin",
+    "EnglishName": "Finnish",
+    "NativeName": "Suomi",
+    "Version": "jYal21kpCJ3IV2CJSR0EDF37XX7fjlRW"
+  },
+  {
+    "Prefix": "fre",
+    "EnglishName": "French",
+    "NativeName": "Français",
+    "Version": "1U7_9aKVzyXlxJnJQBfn8yRSiwrzKh2W"
+  },
+  {
+    "Prefix": "ger",
+    "EnglishName": "German",
+    "NativeName": "Deutsch",
+    "Version": "FWFgE_qZ3cCYyWNoLkPBIvG0IcG_ol0F"
+  },
+  {
+    "Prefix": "hun",
+    "EnglishName": "Hungarian",
+    "NativeName": "Magyar",
+    "Version": "0DGIEEuzUy153MNvakCgYe4f..5rqDnd"
+  },
+    {
+    "Prefix": "ind",
+    "EnglishName": "Indonesian",
+    "NativeName": "Indonesian",
+    "Version": "qhUwu1xt4saqXMMtEiiPHHqB.KZJg90N"
+  },
+  {
+    "Prefix": "ita",
+    "EnglishName": "Italian",
+    "NativeName": "Italiano",
+    "Version": "AyrkkH1l7t.q8j2RCQxPStfaxMe5iwCn"
+  },
+    {
+    "Prefix": "lit",
+    "EnglishName": "Lithuanian",
+    "NativeName": "Lietuvių",
+    "Version": "E6ZyfYeHcye1GqMZKfuoZzYJYqoLMEKl"
+  },
+  {
+    "Prefix": "nld",
+    "EnglishName": "Dutch",
+    "NativeName": "Nederlands",
+    "Version": "0Xy0BKYjfKnHmgwZ.JkQjjyK30YXXy7D"
+  },  
+  {
+    "Prefix": "pol",
+    "EnglishName": "Polish",
+    "NativeName": "Polski",
+    "Version": "0Xy0BKYjfKnHmgwZ.JkQjjyK30YXXy7D"
+  },
+   {
+    "Prefix": "por",
+    "EnglishName": "Portuguese",
+    "NativeName": "Português",
+    "Version": "B0_Vi8yHBA8zMakMCujA7cpfXaEYtrot"
+  }, 
+  {
+    "Prefix": "rou",
+    "EnglishName": "Romanian",
+    "NativeName": "Română",
+    "Version": "UV8l9Nb7YkYcEP.s1knE8jucgyL5XZ_g"
+  },
+  {
+    "Prefix": "rus",
+    "EnglishName": "Russian",
+    "NativeName": "Русский",
+    "Version": "yDdmAYtBfO5Q36gl_OAp._HGQLBvqc6S"
+  },
+  {
+    "Prefix": "swe",
+    "EnglishName": "Swedish",
+    "NativeName": "Svenska",
+    "Version": "RCRbwiuDDWzW_Kl9PJ7ShmZCxna3fckq"
+  },
+  {
+    "Prefix": "tur",
+    "EnglishName": "Turkish",
+    "NativeName": "Türkçe",
+    "Version": "LLaryLFZpOtEzadMWx5.nhe9hdTTq6JK"
+  }
+]

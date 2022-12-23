@@ -1,0 +1,7 @@
+{
+    "ENV": "PROD",
+    "BASE_URL": {
+        "DEV": "https://urantia.s3.amazonaws.com/app/dev/db/",
+        "PROD": "https://urantia.s3.amazonaws.com/app/prod/db/"
+    }
+}

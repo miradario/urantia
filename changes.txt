@@ -1,0 +1,49 @@
+Record of changes
+- Copy and alter deployment config key for release
+	file: build.gradle (Module: UrantiaMobile.app)
+	line: 154
+	release {
+            storeFile file('release.keystore')
+            storePassword ''
+            keyAlias 'release'
+            keyPassword ''
+        }
+
+	For password fields, use release key in hudu
+	
+	At line ~169, alter 
+		signingConfig signingConfigs.debug
+	to read
+		signingConfig signingConfigs.release
+		
+	At line 132, adjust VersionCode and VersionName as appropriate. 
+	32.0 is the first release candidate version
+	
+	
+- Ensure release.keystore is in the urantia\reactapp\android\app folder
+
+
+This should now have Android Studio building the bundle at API target level 29
+
+Now the fun begins. Actually no. This is the path of pain.
+
+
+
+Change SDK/API Target levels
+
+- Open the build gradle file for the project
+	file: build.gradle (Project: UrantiaMobile.app)
+	line: 4
+	Alter to read
+		ext {
+			buildToolsVersion = "29.0.2"
+			minSdkVersion = 16
+			compileSdkVersion = 29
+			targetSdkVersion = 30
+		}
+
+
+
+
+NOTES
+keytool -genkey -v -keystore release.keystore -alias release -keyalg RSA -keysize 2048 -validity 10000

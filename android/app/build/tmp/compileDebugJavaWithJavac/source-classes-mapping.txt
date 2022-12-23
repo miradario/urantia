@@ -1,0 +1,14 @@
+com/urantiamobile/ReactNativeFlipper.java
+ com.urantiamobile.ReactNativeFlipper
+ com.urantiamobile.ReactNativeFlipper$1
+ com.urantiamobile.ReactNativeFlipper$2
+ com.urantiamobile.ReactNativeFlipper$2$1
+com/urantiamobile/MainApplication.java
+ com.urantiamobile.MainApplication
+ com.urantiamobile.MainApplication$1
+com/urantiamobile/MainActivity.java
+ com.urantiamobile.MainActivity
+com/urantiamobile/BuildConfig.java
+ com.urantiamobile.BuildConfig
+com/facebook/react/PackageList.java
+ com.facebook.react.PackageList

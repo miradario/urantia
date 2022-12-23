@@ -1,0 +1,10 @@
+export const SET_DATA = 'set data';
+export const SET_SETTING = 'set setting';
+export const SET_BOOKMARKS = 'set bookmarks';
+export const SET_HISTORY = 'set history';
+export const SET_LOCALIZATION = 'set localization';
+export const ADD_HISTORY = 'add history';
+export const REMOVE_HISTORY = 'remove history';
+export const ADD_BOOKMARK = 'add bookmark';
+export const REMOVE_BOOKMARK = 'remove bookmark';
+export const SET_RESULTS = 'set results';
