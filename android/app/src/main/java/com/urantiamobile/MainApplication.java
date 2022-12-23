@@ -1,5 +1,5 @@
 package com.urantiamobile;
-
+    
 import androidx.multidex.MultiDexApplication;
 import android.content.Context;
 import com.facebook.react.PackageList;
