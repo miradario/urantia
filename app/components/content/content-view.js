@@ -1,26 +1,26 @@
-import React, { PureComponent, Component } from 'react';
-import { View } from 'react-native';
-import { connect } from 'react-redux';
-import { normalizeUnicode } from '../../services/utils-service';
-import styles from '../styles';
+import React, { PureComponent, Component } from "react";
+import { View } from "react-native";
+import { connect } from "react-redux";
+import { normalizeUnicode } from "../../services/utils-service";
+import styles from "../styles";
 
-import HTML from 'react-native-render-html';
+import HTML from "react-native-render-html";
 
-import { DARK_GREY, WHITE } from '../color';
+import { DARK_GREY, WHITE } from "../color";
 import {
   DEFAULT_FONT,
   DEFAULT_FONT_BOLD,
   DEFAULT_FONT_ITALIC,
-} from '../constants';
-import UText from '../shared/u-text';
+} from "../constants";
+import UText from "../shared/u-text";
 
 class ContentView extends PureComponent {
   transformSmallCaps(content) {
-    const replaceSmallCapsRegexStart = new RegExp('<smallcaps>', 'gi');
-    const replaceSmallCapsRegexEnd = new RegExp('</smallcaps>', 'gi');
+    const replaceSmallCapsRegexStart = new RegExp("<smallcaps>", "gi");
+    const replaceSmallCapsRegexEnd = new RegExp("</smallcaps>", "gi");
     content = content
       .replace(replaceSmallCapsRegexStart, "</span><span class='smallCaps'>")
-      .replace(replaceSmallCapsRegexEnd, '</span><span>');
+      .replace(replaceSmallCapsRegexEnd, "</span><span>");
     return content;
   }
   render() {
@@ -32,7 +32,7 @@ class ContentView extends PureComponent {
       parentIndex,
       searchText,
       index,
-      foundParagraph
+      foundParagraph,
     } = this.props;
     let {
       Content: paragraph,
@@ -44,29 +44,41 @@ class ContentView extends PureComponent {
     } = content;
     // const { searchText } = this.props.route.params;
     let searchTextFound = false;
+    console.log("seatext", searchText);
+
     if (searchText) {
-      const paragraphNorm = normalizeUnicode(paragraph);
-      const textNorm = normalizeUnicode(searchText);
-      const replaceRegex = new RegExp(textNorm, 'gi');
-      const openTag = '<span class="search-text">';
-      const closeTag = '</span>';
-      let indexOffset = 0;
-      let match = null;
-      while ((match = replaceRegex.exec(paragraphNorm)) !== null) {
-        const index = match.index + indexOffset;
-        const firstPart = paragraph.slice(0, index);
-        const lastPart = paragraph.slice(index + searchText.length);
-        const extractedText = paragraph.slice(index, index + searchText.length);
-        paragraph = firstPart + openTag + extractedText + closeTag + lastPart;
-        searchTextFound = true;
-        indexOffset += openTag.length + closeTag.length;
+      var words = searchText.split(" ");
+      console.log("lenght", words);
+      for (var i = 0; i < words.length; i++) {
+        console.log("words", words[i]);
+
+        const paragraphNorm = normalizeUnicode(paragraph);
+
+        const textNorm = normalizeUnicode(words[i]);
+        const replaceRegex = new RegExp(textNorm, "gi");
+        const openTag = '<span class="search-text">';
+        const closeTag = "</span>";
+        let indexOffset = 0;
+        let match = null;
+
+        while ((match = replaceRegex.exec(paragraphNorm)) !== null) {
+          const index = match.index + indexOffset;
+          const firstPart = paragraph.slice(0, index);
+
+          const lastPart = paragraph.slice(index + textNorm.length);
+          console.log("Last Part: ", lastPart);
+          const extractedText = paragraph.slice(index, index + textNorm.length);
+          paragraph = firstPart + openTag + extractedText + closeTag + lastPart;
+
+          searchTextFound = true;
+          indexOffset += openTag.length + closeTag.length;
+        }
       }
     }
-
     let color = nightMode ? WHITE : DARK_GREY;
     let backgroundColor = nightMode ? DARK_GREY : WHITE;
     if (searchTextFound) {
-      backgroundColor = '#36393F';
+      backgroundColor = "#36393F";
       color = WHITE;
     }
     const htmlTagStyle = {
@@ -77,8 +89,8 @@ class ContentView extends PureComponent {
     };
 
     const pClass = [
-      '',
-      '',
+      "",
+      "",
       " style='padding-bottom: 0;'",
       " style='padding-bottom: 1em;'",
       " style='padding-bottom: 1.5em;'",
@@ -94,21 +106,21 @@ class ContentView extends PureComponent {
       smallCaps: {
         fontFamily: DEFAULT_FONT,
         fontSize: fontSize - 4,
-        textTransform: 'uppercase',
+        textTransform: "uppercase",
       },
-      'search-text': { color: '#e74c3c' },
+      "search-text": { color: "#e74c3c" },
       text: { ...styles.p, fontSize, color },
-      'super-container': { fontSize: fontSize - 4 },
+      "super-container": { fontSize: fontSize - 4 },
       asterisk: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
+        flexDirection: "row",
+        justifyContent: "center",
         marginTop: 10,
         // backgroundColor: '#0F9',
       },
     };
 
-    let prefix = '&emsp;&emsp;&#8205;';
+    let prefix = "&emsp;&emsp;&#8205;";
     if (this.props.referenceNumber && ![5, 6].includes(TextTypeId)) {
       prefix = `<span>${PaperNr}:${PaperSec}.${PaperPar}&emsp;</span>`;
     }
@@ -117,7 +129,7 @@ class ContentView extends PureComponent {
     let compareParagraph;
 
     if (compareContents.length > 0) {
-      compareParagraph = compareContents[parentIndex][index]['Content'];
+      compareParagraph = compareContents[parentIndex][index]["Content"];
     }
 
     if ([5, 6].includes(TextTypeId)) {
@@ -138,9 +150,10 @@ class ContentView extends PureComponent {
         key={index}
         onLayout={(event) => {
           if (foundParagraph) {
-            this.props.jumpToParagraph(index)
+            this.props.jumpToParagraph(index);
           }
-        }}>
+        }}
+      >
         {index === 0 ? (
           <View style={{ marginVertical: 10 }} selectable>
             <View>
@@ -149,9 +162,10 @@ class ContentView extends PureComponent {
                   style={{
                     fontSize: fontSize + 2,
                     fontFamily: DEFAULT_FONT_BOLD,
-                    textAlign: 'center',
+                    textAlign: "center",
                     color: color,
-                  }}>
+                  }}
+                >
                   {this.props.localization.paper} {PaperNr}
                 </UText>
               )}
@@ -204,7 +218,7 @@ class ContentView extends PureComponent {
                       htmlAttribs,
                       children,
                       convertedCSSStyles,
-                      passProps,
+                      passProps
                     ) => <View key="main">{children}</View>,
                   }}
                 />
