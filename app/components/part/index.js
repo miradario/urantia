@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { FlatList, Modal, View } from 'react-native';
-import { connect } from 'react-redux';
-import { COMP_TYPES } from '../../routers/types';
-import { bindActionCreators } from 'redux';
-import { getParts, getCompareParts } from '../../controllers/actions';
-import RenderItem from '../shared/render-item';
+import React, { Component } from "react";
+import { FlatList, Modal, View } from "react-native";
+import { connect } from "react-redux";
+import { COMP_TYPES } from "../../routers/types";
+import { bindActionCreators } from "redux";
+import { getParts, getCompareParts } from "../../controllers/actions";
+import RenderItem from "../shared/render-item";
 import {
   CONCRETE,
   DARK_GREY,
@@ -13,14 +13,14 @@ import {
   RED_PIGMENT,
   SHAMROCK,
   WHITE,
-} from '../color';
-import styles from '../styles';
-import SettingService from '../../services/setting-service';
-import FileService from '../../services/file-service';
-import UText from '../shared/u-text';
-import { Button } from 'react-native-elements';
-import { DEFAULT_FONT } from '../constants';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+} from "../color";
+import styles from "../styles";
+import SettingService from "../../services/setting-service";
+import FileService from "../../services/file-service";
+import UText from "../shared/u-text";
+import { Button } from "react-native-elements";
+import { DEFAULT_FONT } from "../constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class Part extends Component {
   state = {
@@ -36,11 +36,14 @@ class Part extends Component {
         const versions = langs.map((lang) => lang.Version);
         this.setState({
           updateAvailable: !_downloadedLanguages.every((lang) =>
-            versions.includes(lang.Version),
+            versions.includes(lang.Version)
           ),
         });
       }
-      const state = await AsyncStorage.getItem('@save_state')
+      const state = await AsyncStorage.getItem("@save_state");
+      /* 
+      19-1 DM this is the code that redirects to the last page the user was on before closing the app 
+      
       if (state) {
         const { PageNr, PaperNr, PaperSec, LineNr, y } = JSON.parse(state);
         this.props.navigation.navigate(COMP_TYPES.CONTENT, {
@@ -53,7 +56,7 @@ class Part extends Component {
           fromBookmark: false,
           fromRedirect: true
         });
-      }
+      } */
     } catch (error) {
       console.log({ error });
     }
@@ -84,8 +87,8 @@ class Part extends Component {
     let compareSubtitle;
     const { compareParts } = this.props;
     if (compareParts.length > 0) {
-      compareTitle = ` / ${compareParts[partNo]['Prefix']}`;
-      compareSubtitle = ` / ${compareParts[partNo]['Title']}`;
+      compareTitle = ` / ${compareParts[partNo]["Prefix"]}`;
+      compareSubtitle = ` / ${compareParts[partNo]["Title"]}`;
     }
     if (partNo === 0) {
       subtitle = null;
@@ -130,8 +133,8 @@ class Part extends Component {
     fontSize += 3;
     const containerStyle = {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      justifyContent: "center",
+      alignItems: "center",
       // backgroundColor: DODGER_BLUE,
     };
     const buttonStyle = {
@@ -139,7 +142,7 @@ class Part extends Component {
       backgroundColor: RED_PIGMENT,
       width: 80,
     };
-    const uTextStyle = { fontSize, textAlign: 'center', marginBottom: 10 };
+    const uTextStyle = { fontSize, textAlign: "center", marginBottom: 10 };
     const titleStyle = { fontFamily: DEFAULT_FONT };
     return (
       <>
@@ -152,9 +155,11 @@ class Part extends Component {
         <Modal
           animationType="slide"
           transparent={true}
-          visible={this.state.updateAvailable}>
+          visible={this.state.updateAvailable}
+        >
           <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
             <View
               style={{
                 width: 270,
@@ -162,16 +167,18 @@ class Part extends Component {
                 backgroundColor: GEYSER,
                 borderRadius: 10,
                 padding: 15,
-              }}>
+              }}
+            >
               <UText style={uTextStyle}>{updateNowMsg}</UText>
               <UText style={uTextStyle}>{updateNow}</UText>
 
               <View
                 style={{
                   flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}>
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
                 <Button
                   title={no}
                   titleStyle={titleStyle}
@@ -223,7 +230,7 @@ function matchDispatchToProps(dispatch) {
       getParts,
       getCompareParts,
     },
-    dispatch,
+    dispatch
   );
 }
 
