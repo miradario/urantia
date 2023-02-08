@@ -132,10 +132,11 @@ class Part extends Component {
     // }, 2000);
     fontSize += 3;
     const containerStyle = {
-      flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      // backgroundColor: DODGER_BLUE,
+      flex: 1,
+      height: 100,
+      padding: 5,
     };
     const buttonStyle = {
       borderRadius: 20,
@@ -156,17 +157,26 @@ class Part extends Component {
           animationType="slide"
           transparent={true}
           visible={this.state.updateAvailable}
+          //visible={true}
         >
           <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(0,0,0,0.5)",
+            }}
           >
             <View
               style={{
-                width: 270,
-                flexBasis: 200,
+                width: "80%",
+                height: "30%",
                 backgroundColor: GEYSER,
                 borderRadius: 10,
-                padding: 15,
+                paddingTop: 20,
+                borderColor: "black",
+                borderStyle: "solid",
+                borderWidth: 1,
               }}
             >
               <UText style={uTextStyle}>{updateNowMsg}</UText>
