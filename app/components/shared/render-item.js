@@ -1,10 +1,10 @@
-import { ListItem } from 'react-native-elements';
-import styles from '../styles';
-import React, { Component } from 'react';
-import UText from './u-text';
-import { DARK_GREY, WHISPER, WHITE } from '../color';
-import { DEFAULT_FONT_BOLD } from '../constants';
-import { COMP_TYPES } from '../../routers/types';
+import { ListItem } from "react-native-elements";
+import styles from "../styles";
+import React, { Component } from "react";
+import UText from "./u-text";
+import { DARK_GREY, WHISPER, WHITE } from "../color";
+import { DEFAULT_FONT_BOLD } from "../constants";
+import { COMP_TYPES } from "../../routers/types";
 
 const RenderItem = (props) => {
   const {
@@ -29,7 +29,8 @@ const RenderItem = (props) => {
       key={index}
       containerStyle={{ backgroundColor, paddingVertical: subtitle ? 12 : 16 }}
       onPress={() => navigate()}
-      bottomDivider>
+      bottomDivider
+    >
       <ListItem.Content>
         <ListItem.Title>
           <UText style={{ ...uTextStyle, ...additionalSty }}>

@@ -44,17 +44,16 @@ class ContentView extends PureComponent {
     } = content;
     // const { searchText } = this.props.route.params;
     let searchTextFound = false;
-    console.log("seatext", searchText);
 
     if (searchText) {
       var words = searchText.split(" ");
-      console.log("lenght", words);
       for (var i = 0; i < words.length; i++) {
         console.log("words", words[i]);
 
         const paragraphNorm = normalizeUnicode(paragraph);
 
         const textNorm = normalizeUnicode(words[i]);
+        console.log("textNorm", textNorm);
         const replaceRegex = new RegExp(textNorm, "gi");
         const openTag = '<span class="search-text">';
         const closeTag = "</span>";
@@ -63,18 +62,21 @@ class ContentView extends PureComponent {
 
         while ((match = replaceRegex.exec(paragraphNorm)) !== null) {
           const index = match.index + indexOffset;
-          const firstPart = paragraph.slice(0, index);
 
+          const firstPart = paragraph.slice(0, index);
+          console.log("firstPart", firstPart);
           const lastPart = paragraph.slice(index + textNorm.length);
-          console.log("Last Part: ", lastPart);
+          console.log("LastPart", lastPart);
           const extractedText = paragraph.slice(index, index + textNorm.length);
           paragraph = firstPart + openTag + extractedText + closeTag + lastPart;
 
           searchTextFound = true;
           indexOffset += openTag.length + closeTag.length;
+          console.log("indexOffset", indexOffset);
         }
       }
     }
+    paragraph = paragraph.replace("</span> <span", ` </span> <span`);
     let color = nightMode ? WHITE : DARK_GREY;
     let backgroundColor = nightMode ? DARK_GREY : WHITE;
     if (searchTextFound) {
@@ -195,12 +197,12 @@ class ContentView extends PureComponent {
               classesStyles={classesStyles}
               tagsStyles={htmlTagStyle}
               source={{
-                html: `<div class='text' ${paratype}>${prefix}${paragraph}</div>`,
+                html: `<div class='text' ${paratype}><UText>${prefix}${paragraph}</UText></div>`,
               }}
               defaultTextProps={{ selectable: true }}
               renderers={{
                 sup: (htmlAttribs, children, convertedCSSStyles, passProps) => (
-                  <View key="main">{children}</View>
+                  <View key="main">lalal{children}</View>
                 ),
               }}
             />

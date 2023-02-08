@@ -238,11 +238,7 @@ class Content extends Component {
           shouldUpdate: true,
         });
       }
-      console.log(
-        "Current vs Prev PaperNr",
-        PaperNr,
-        this.props.route.params.PaperNr
-      );
+
       if (this.props.route.params.revert) {
         this.setBackButton(PaperNr);
       } else if (this.props.route.params.PaperNr != PaperNr) {
