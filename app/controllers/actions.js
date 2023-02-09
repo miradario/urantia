@@ -1,6 +1,6 @@
-import DatabaseService from '../services/database-service';
-import FormatService from '../services/format-service';
-import SettingService from '../services/setting-service';
+import DatabaseService from "../services/database-service";
+import FormatService from "../services/format-service";
+import SettingService from "../services/setting-service";
 import {
   ADD_BOOKMARK,
   ADD_HISTORY,
@@ -12,7 +12,7 @@ import {
   SET_LOCALIZATION,
   SET_RESULTS,
   SET_SETTING,
-} from './actions-types';
+} from "./actions-types";
 
 export const getLanguages = () => {
   return async (dispatch) => {
@@ -95,7 +95,7 @@ export const getContents = (language) => {
       const response = await DatabaseService.getContents(language);
       const contents = await FormatService.formatContents(response);
       for (const [index, content] of contents.entries()) {
-        const LineNumber = content[0]['LineNr'];
+        const LineNumber = content[0]["LineNr"];
         contentLineNumbers[LineNumber] = index;
       }
       dispatch({ type: SET_DATA, payload: { contents, contentLineNumbers } });
@@ -151,12 +151,12 @@ export const getSettings = () => {
   return async (dispatch) => {
     try {
       const responses = await SettingService.getSettings();
-      const fontSize = responses[0]['FontSize'];
-      const sepia = responses[0]['Sepia'];
-      const margin = responses[0]['Margin'];
-      const referenceNumber = responses[0]['ReferenceNumber'] === 1;
-      const nightMode = responses[0]['NightMode'] === 1;
-      const moreSpace = responses[0]['MoreSpace'] === 1;
+      const fontSize = responses[0]["FontSize"];
+      const sepia = responses[0]["Sepia"];
+      const margin = responses[0]["Margin"];
+      const referenceNumber = responses[0]["ReferenceNumber"] === 1;
+      const nightMode = responses[0]["NightMode"] === 1;
+      const moreSpace = responses[0]["MoreSpace"] === 1;
       dispatch({
         type: SET_SETTING,
         payload: {
@@ -341,7 +341,7 @@ export const setLocalization = (params) => {
       if (localizations) {
         if (localizations.length === 0) {
           const defaultPrefix = {
-            prefix: 'eng',
+            prefix: "eng",
           };
           localizations = await SettingService.getLocalization(defaultPrefix);
         }
@@ -350,7 +350,7 @@ export const setLocalization = (params) => {
       localization = Object.keys(localization)
         .map((key) => {
           return {
-            [key]: localization[key] ? localization[key] : '',
+            [key]: localization[key] ? localization[key] : "",
           };
         })
         .reduce((acc, cur) => {
@@ -372,9 +372,9 @@ export const searchContents = (language, searchText) => {
       const searchHistories = await SettingService.getSearchHistories();
       results = results.map((result) => {
         const attr = `[^.!?]*(${searchText})+[^.!?]*[.!?:]+`;
-        const regex = new RegExp(attr, 'gi');
+        const regex = new RegExp(attr, "gi");
         const matchedContent = result.content.match(regex);
-        const replaceRegex = new RegExp(searchText, 'gi');
+        const replaceRegex = new RegExp(searchText, "gi");
         // console.log({ matchedContent });
         return {
           ...result,
@@ -382,13 +382,13 @@ export const searchContents = (language, searchText) => {
             matchedContent && matchedContent.length > 0
               ? matchedContent[0].replace(
                   replaceRegex,
-                  `<span>${searchText}</span>`,
+                  `<span>${searchText}</span>`
                 )
               : // .map((content) => content.replace(/<\/[A-Za-z]*>/g, '').replace(/[A-Za-z].*>/g, ''))
                 // .join(' ')
                 result.content.replace(
                   replaceRegex,
-                  `<span>${searchText}</span>`,
+                  `<span>${searchText}</span>`
                 ),
         };
       });

@@ -1,7 +1,7 @@
-import React, { Component, PureComponent } from 'react';
-import { FlatList } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { Component, PureComponent } from "react";
+import { FlatList } from "react-native";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import {
   setCompareLanguage,
   getCompareParts,
@@ -9,16 +9,16 @@ import {
   getCompareSections,
   getCompareContents,
   resetCompareContents,
-} from '../../controllers/actions';
-import { ListItem } from 'react-native-elements';
-import styles from '../styles';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { DARK_GREY, WHISPER, WHITE, SHAMROCK } from '../color';
-import Loading from '../shared/loading';
-import { OFF } from '../constants';
-import UText from '../shared/u-text';
-import { ROUTER_TYPES } from '../../routers/types';
-import { CommonActions } from '@react-navigation/native';
+} from "../../controllers/actions";
+import { ListItem } from "react-native-elements";
+import styles from "../styles";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { DARK_GREY, WHISPER, WHITE, SHAMROCK } from "../color";
+import Loading from "../shared/loading";
+import { OFF } from "../constants";
+import UText from "../shared/u-text";
+import { ROUTER_TYPES } from "../../routers/types";
+import { CommonActions } from "@react-navigation/native";
 
 class CompareLanguage extends PureComponent {
   state = {
@@ -34,11 +34,11 @@ class CompareLanguage extends PureComponent {
   componentDidUpdate(prevProps) {
     const prevContent =
       prevProps.compareContents.length > 0
-        ? prevProps.compareContents[0][0]['Content']
+        ? prevProps.compareContents[0][0]["Content"]
         : null;
     const currentContent =
       this.props.compareContents.length > 0
-        ? this.props.compareContents[0][0]['Content']
+        ? this.props.compareContents[0][0]["Content"]
         : null;
     if (prevContent !== currentContent) {
       this.setState({
@@ -60,7 +60,7 @@ class CompareLanguage extends PureComponent {
               params: { localization: this.props.localization },
             },
           ],
-        }),
+        })
       );
     }
   }
@@ -84,27 +84,35 @@ class CompareLanguage extends PureComponent {
       loading: true,
     });
     if (lang === OFF.toLocaleLowerCase()) {
+      console.log("enter here?");
       this.props.setCompareLanguage(formattedLang);
       setTimeout(() => {
         this.props.resetCompareContents();
       }, 1000);
+      this.setState({
+        loading: false,
+      });
     } else if (lang !== this.props.compareLanguage.toLowerCase()) {
+      console.log("language?");
       this.props.setCompareLanguage(formattedLang);
       this.props.getCompareParts(formattedLang);
       this.props.getComparePapers(formattedLang);
       this.props.getCompareSections(formattedLang);
       this.props.getCompareContents(formattedLang);
+      this.setState({
+        loading: false,
+      });
     }
   };
 
   getCompareLanguages = () => {
     try {
       const langPrefix = this.props.language.toLowerCase();
-      const compareLanguages = this.props.languages.filter(
-        (lang) => lang.Prefix !== langPrefix,
-      ).sort((prev, next) => prev.NativeName > next.NativeName);
+      const compareLanguages = this.props.languages
+        .filter((lang) => lang.Prefix !== langPrefix)
+        .sort((prev, next) => prev.NativeName > next.NativeName);
       compareLanguages.unshift({
-        Prefix: 'off',
+        Prefix: "off",
         NativeName: this.props.localization.off,
       });
       this.setState({
@@ -127,14 +135,15 @@ class CompareLanguage extends PureComponent {
         key={index}
         containerStyle={{ backgroundColor }}
         onPress={() => this.setCompareLanguage(Prefix)}
-        bottomDivider>
+        bottomDivider
+      >
         <ListItem.Content>
           <ListItem.Title>
             <UText style={uTextStyle}>{NativeName}</UText>
           </ListItem.Title>
         </ListItem.Content>
         {Prefix === this.props.compareLanguage.toLowerCase() ? (
-          <Icon name="check-circle" size={18} color={SHAMROCK} />
+          <Icon name="check-circle" size={22} color={SHAMROCK} />
         ) : null}
       </ListItem>
     );
@@ -157,13 +166,8 @@ class CompareLanguage extends PureComponent {
 }
 
 function mapStateToProps(state) {
-  const {
-    compareLanguage,
-    language,
-    languages,
-    fontSize,
-    nightMode,
-  } = state.setting;
+  const { compareLanguage, language, languages, fontSize, nightMode } =
+    state.setting;
   const { compareContents } = state.book;
   const { localization } = state;
   return {
@@ -187,7 +191,7 @@ function matchDispatchToProps(dispatch) {
       getCompareContents,
       resetCompareContents,
     },
-    dispatch,
+    dispatch
   );
 }
 

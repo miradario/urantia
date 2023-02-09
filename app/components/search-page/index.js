@@ -1,30 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   FlatList,
   ActivityIndicator,
   View,
   Modal,
   TouchableOpacity,
-} from 'react-native';
-import { connect } from 'react-redux';
-import { COMP_TYPES } from '../../routers/types';
+} from "react-native";
+import { connect } from "react-redux";
+import { COMP_TYPES } from "../../routers/types";
 
-import { ListItem } from 'react-native-elements';
-import HTML from 'react-native-render-html';
-import { TextInput } from 'react-native-gesture-handler';
-import styles from './styles';
-import { DARK_GREY, RED_PIGMENT, WHITE } from '../color';
-import { Picker } from '@react-native-picker/picker';
-import UText from '../shared/u-text';
-import DatabaseService from '../../services/database-service';
-import SettingService from '../../services/setting-service';
-import { DEFAULT_FONT } from '../constants';
+import { ListItem } from "react-native-elements";
+import HTML from "react-native-render-html";
+import { TextInput } from "react-native-gesture-handler";
+import styles from "./styles";
+import { DARK_GREY, RED_PIGMENT, WHITE } from "../color";
+import { Picker } from "@react-native-picker/picker";
+import UText from "../shared/u-text";
+import DatabaseService from "../../services/database-service";
+import SettingService from "../../services/setting-service";
+import { DEFAULT_FONT } from "../constants";
 // import { Modal } from 'react-native';
 
 class SearchPage extends Component {
   timeoutId;
   state = {
-    searchText: '',
+    searchText: "",
     loading: false,
     filterBy: 0,
     showPreviousSearches: false,
@@ -94,7 +94,8 @@ class SearchPage extends Component {
               backgroundColor,
               fontFamily: DEFAULT_FONT,
               fontSize,
-            }}></TextInput>
+            }}
+          ></TextInput>
         );
       },
     });
@@ -115,7 +116,7 @@ class SearchPage extends Component {
       });
       let results = await DatabaseService.searchContents(
         this.props.language,
-        searchText,
+        searchText
       );
 
       if (newSearch) {
@@ -128,7 +129,7 @@ class SearchPage extends Component {
         results,
       };
       if (!newSearch) {
-        state['showPreviousSearches'] = false;
+        state["showPreviousSearches"] = false;
         this.textInput.clear();
       }
       this.setState(state);
@@ -150,15 +151,8 @@ class SearchPage extends Component {
   };
 
   renderItem = ({ item: result, index }) => {
-    const {
-      paper,
-      content,
-      paperNr,
-      paperSec,
-      paperPar,
-      pageNr,
-      lineNr,
-    } = result;
+    const { paper, content, paperNr, paperSec, paperPar, pageNr, lineNr } =
+      result;
     const { fontSize } = this.props;
     const color = this.props.nightMode ? WHITE : DARK_GREY;
     const backgroundColor = this.props.nightMode ? DARK_GREY : WHITE;
@@ -166,8 +160,14 @@ class SearchPage extends Component {
     if (paperNr === 0) {
       paperInfo = paper;
     }
+    console.log("content", content);
+    let contentShow = content;
+    while (contentShow.includes("</span> <span")) {
+      contentShow = contentShow.replace("</span> <span", ` </span>&nbsp;<span`);
+    }
+
     const titleBlock = `<p>${paperInfo}</p>`;
-    const contentBlock = `<p>${paperNr}:${paperSec}.${paperPar} ${content}</p>`;
+    const contentBlock = `<p>${paperNr}:${paperSec}.${paperPar} ${contentShow}</p>`;
     return (
       <ListItem
         key={index}
@@ -182,7 +182,8 @@ class SearchPage extends Component {
             searchText: this.state.searchText,
           });
         }}
-        bottomDivider>
+        bottomDivider
+      >
         <ListItem.Content>
           <HTML
             tagsStyles={{
@@ -216,10 +217,11 @@ class SearchPage extends Component {
       <View
         style={{
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
           backgroundColor,
-        }}>
+        }}
+      >
         <ActivityIndicator size="small" color="#7f8c8d" />
       </View>
     ) : (
@@ -227,26 +229,30 @@ class SearchPage extends Component {
         <Modal
           animationType="slide"
           transparent={false}
-          visible={this.state.showPreviousSearches}>
+          visible={this.state.showPreviousSearches}
+        >
           <View
             style={{
               flex: 1,
               backgroundColor,
-            }}>
+            }}
+          >
             <View
               style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                flexDirection: "row",
+                justifyContent: "space-between",
                 margin: 10,
                 backgroundColor,
-              }}>
+              }}
+            >
               <TouchableOpacity
                 style={{ ...styles.cancelButton, backgroundColor: color }}
                 onPress={() => {
                   this.setState({
                     showPreviousSearches: false,
                   });
-                }}>
+                }}
+              >
                 <UText style={{ color: backgroundColor, fontSize }}>
                   {this.props.localization.back}
                 </UText>
@@ -258,7 +264,8 @@ class SearchPage extends Component {
                 }}
                 onPress={() => {
                   this.clearSearchHistories();
-                }}>
+                }}
+              >
                 <UText style={{ color: backgroundColor, fontSize }}>
                   {this.props.localization.clearAll}
                 </UText>
@@ -267,7 +274,8 @@ class SearchPage extends Component {
             <ListItem
               key="search_history"
               bottomDivider
-              containerStyle={{ backgroundColor, color }}>
+              containerStyle={{ backgroundColor, color }}
+            >
               <ListItem.Content>
                 <UText style={{ color, fontSize }}>
                   {this.props.localization.searchHistory}
@@ -285,9 +293,12 @@ class SearchPage extends Component {
                       searchText: history.searchText,
                       newSearch: false,
                     });
-                  }}>
+                  }}
+                >
                   <ListItem.Content>
-                    <UText style={{ color, fontSize }}>{history.searchText}</UText>
+                    <UText style={{ color, fontSize }}>
+                      {history.searchText}
+                    </UText>
                   </ListItem.Content>
                   <ListItem.Chevron />
                 </ListItem>
@@ -295,7 +306,7 @@ class SearchPage extends Component {
             })}
           </View>
         </Modal>
-        <View style={{ backgroundColor: '#bcbbc1' }}>
+        <View style={{ backgroundColor: "#bcbbc1" }}>
           <Picker
             selectedValue={this.state.filterBy}
             style={{ marginLeft: 18, fontFamily: DEFAULT_FONT }}
@@ -305,14 +316,16 @@ class SearchPage extends Component {
               backgroundColor,
               fontFamily: DEFAULT_FONT,
               color: RED_PIGMENT,
-              height: 50, transform: [{ scaleX: 1 }, { scaleY: 1 }]
+              height: 50,
+              transform: [{ scaleX: 1 }, { scaleY: 1 }],
             }}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 filterBy: itemValue,
               })
-            }>
-            <Picker.Item label={this.props.localization.book} value={0}/>
+            }
+          >
+            <Picker.Item label={this.props.localization.book} value={0} />
             {this.props.parts
               .filter((_filter) => _filter.PartNr !== 0)
               .map((part) => {
@@ -332,7 +345,8 @@ class SearchPage extends Component {
           key="search_history_page"
           onPress={() => {
             this.getSearchHistories();
-          }}>
+          }}
+        >
           <ListItem.Content>
             <UText style={{ color, fontSize }}>
               {this.props.localization.searchHistory}
