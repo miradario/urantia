@@ -81,7 +81,7 @@ class CompareLanguage extends PureComponent {
   setCompareLanguage = async (lang) => {
     const formattedLang = lang.charAt(0).toUpperCase() + lang.slice(1);
     this.setState({
-      loading: true,
+      loading: false,
     });
     if (lang === OFF.toLocaleLowerCase()) {
       console.log("enter here?");

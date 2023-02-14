@@ -165,9 +165,11 @@ class SearchPage extends Component {
     while (contentShow.includes("</span> <span")) {
       contentShow = contentShow.replace("</span> <span", ` </span>&nbsp;<span`);
     }
-
+    while (contentShow.includes("</span> <em")) {
+      contentShow = contentShow.replace("</span> <em", ` </span>&emsp;<em`);
+    }
     const titleBlock = `<p>${paperInfo}</p>`;
-    const contentBlock = `<p>${paperNr}:${paperSec}.${paperPar} ${contentShow}</p>`;
+    const contentBlock = `<pre><p>${paperNr}:${paperSec}.${paperPar} ${contentShow}</p></pre>`;
     return (
       <ListItem
         key={index}

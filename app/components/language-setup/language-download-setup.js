@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { BackHandler, View } from 'react-native';
-import { ListItem, Button } from 'react-native-elements';
-import UText from '../shared/u-text';
-import FileService from '../../services/file-service';
-import { DARK_GREY, DODGER_BLUE, SHAMROCK, WHITE } from '../color';
-import SettingService from '../../services/setting-service';
-import { COMP_TYPES } from '../../routers/types';
-import styles from '../styles';
-import CONFIG from '../../../config.json';
-import { ScrollView } from 'react-native-gesture-handler';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { setLocalization } from '../../controllers/actions';
+import React, { Component } from "react";
+import { BackHandler, View } from "react-native";
+import { ListItem, Button } from "react-native-elements";
+import UText from "../shared/u-text";
+import FileService from "../../services/file-service";
+import { DARK_GREY, DODGER_BLUE, SHAMROCK, WHITE } from "../color";
+import SettingService from "../../services/setting-service";
+import { COMP_TYPES } from "../../routers/types";
+import styles from "../styles";
+import CONFIG from "../../../config.json";
+import { ScrollView } from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { setLocalization } from "../../controllers/actions";
 
-const ENV = CONFIG['ENV'];
+const ENV = CONFIG["ENV"];
 
 class LanguageDownloadSetup extends Component {
   constructor(props) {
@@ -26,8 +26,8 @@ class LanguageDownloadSetup extends Component {
 
   componentDidMount() {
     this.downloadLanguages();
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      console.log('hardwareBackPress');
+    this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+      console.log("hardwareBackPress");
     });
   }
 
@@ -41,8 +41,8 @@ class LanguageDownloadSetup extends Component {
         this.state.selectedLanguages.map((language) => {
           return new Promise(async (resolve, reject) => {
             try {
-              const fileName = language.Prefix + '-urantia.db';
-              const downloadUrl = CONFIG['BASE_URL'][ENV] + fileName;
+              const fileName = language.Prefix + "-urantia.db";
+              const downloadUrl = CONFIG["BASE_URL"][ENV] + fileName;
               await FileService.download(downloadUrl);
               await SettingService.addLanguage(language);
               this.setState({
@@ -55,16 +55,16 @@ class LanguageDownloadSetup extends Component {
                           ? true
                           : _language.downloaded,
                     };
-                  },
+                  }
                 ),
               });
             } catch (error) {
               console.log({ error });
-              alert
+              alert;
               reject(error);
             }
           });
-        }),
+        })
       );
     } catch (error) {
       console.log({ error });
@@ -73,7 +73,7 @@ class LanguageDownloadSetup extends Component {
 
   async next() {
     const downloadedLanguages = this.state.selectedLanguages.sort(
-      (prev, next) => prev.NativeName > next.NativeName,
+      (prev, next) => prev.NativeName > next.NativeName
     );
     if (downloadedLanguages.length > 0) {
       const { Prefix: defaultLanguage } = downloadedLanguages[0];
@@ -94,17 +94,19 @@ class LanguageDownloadSetup extends Component {
     return (
       <View
         style={{
-          margin: '10%',
+          margin: "10%",
           // width: '80%',
           flex: 1,
-        }}>
+        }}
+      >
         <ScrollView>
           <View
             style={{
               borderRadius: 5,
               padding: 5,
-              backgroundColor: '#FFF',
-            }}>
+              backgroundColor: "#FFF",
+            }}
+          >
             <ListItem key="languages">
               <ListItem.Content>
                 <ListItem.Title>
@@ -139,7 +141,7 @@ class LanguageDownloadSetup extends Component {
           </View>
         </ScrollView>
         {this.state.selectedLanguages.every(
-          (language) => language.downloaded,
+          (language) => language.downloaded
         ) && (
           <Button
             title={localization.next}
@@ -163,7 +165,7 @@ function matchDispatchToProps(dispatch) {
     {
       setLocalization,
     },
-    dispatch,
+    dispatch
   );
 }
 
@@ -176,5 +178,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  matchDispatchToProps,
+  matchDispatchToProps
 )(LanguageDownloadSetup);
