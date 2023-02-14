@@ -75,11 +75,15 @@ class ContentView extends PureComponent {
         }
       }
     }
-    console.log("cant", paragraph);
 
     for (var i = 0; i < cant; i++) {
       paragraph = paragraph.replace("</span> <span", ` </span>&nbsp;<span`);
     }
+
+    while (paragraph.includes("</span> <em")) {
+      paragraph = paragraph.replace("</span> <em", ` </span>&emsp;<em`);
+    }
+
     let color = nightMode ? WHITE : DARK_GREY;
     let backgroundColor = nightMode ? DARK_GREY : WHITE;
     if (searchTextFound) {
@@ -197,15 +201,22 @@ class ContentView extends PureComponent {
         ) : (
           <View style={{ marginBottom: 2 }}>
             <HTML
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  `<div class='text' ${paratype}><UText>${prefix}${paragraph}</UText></div>`
+                );
+              }}
               classesStyles={classesStyles}
               tagsStyles={htmlTagStyle}
+              defaultTextProps={{ selectable: true }}
               source={{
                 html: `<div class='text' ${paratype}><UText>${prefix}${paragraph}</UText></div>`,
               }}
-              defaultTextProps={{ selectable: true }}
               renderers={{
                 sup: (htmlAttribs, children, convertedCSSStyles, passProps) => (
-                  <View key="main">{children}</View>
+                  <View key="main">
+                    <UText>{children}</UText>
+                  </View>
                 ),
               }}
             />

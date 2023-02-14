@@ -7,6 +7,7 @@ import {
   Text,
   FlatList,
   SafeAreaView,
+  Clipboard,
 } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
