@@ -400,6 +400,7 @@ class Content extends Component {
             });
           }}
           showsVerticalScrollIndicator={false}
+          removeClippedSubviews={false}
           data={this.props?.contents[this.state?.index]}
           keyExtractor={(item, index) => `${item.PageNr}-${index}`}
           renderItem={({ item, index }) => {

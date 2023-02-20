@@ -201,11 +201,6 @@ class ContentView extends PureComponent {
         ) : (
           <View style={{ marginBottom: 2 }}>
             <HTML
-              onClick={() => {
-                navigator.clipboard.writeText(
-                  `<div class='text' ${paratype}><UText>${prefix}${paragraph}</UText></div>`
-                );
-              }}
               classesStyles={classesStyles}
               tagsStyles={htmlTagStyle}
               defaultTextProps={{ selectable: true }}
